@@ -31,11 +31,16 @@ def show_atm_options(acc,pin):
     current_acc = acc
     current_pin = pin
 
-def show_result(message, color="white"):
+def show_result(msg, color):
+    result_frame.pack(pady=20)
     atm_frame.pack_forget()
-    result_frame.pack(pady=50)
-    result_label.config(text=message, fg=color)
-    root.after(3000,back_to_menu_screen)
+    result_box.config(state="normal")
+    result_box.delete("1.0", "end")
+    result_box.insert("1.0", msg)
+    result_box.config(fg=color)
+    result_box.config(state="disabled")
+    back_btn=Button(result_frame, text="🔙Back to Menu", font=("Arial", 12,"bold"), bg="orange", fg="white", width=20, command=back_to_menu_screen  )
+    back_btn.pack(pady=10)
 
 def back_to_menu_screen():
     result_frame.pack_forget()
@@ -141,9 +146,16 @@ Button(atm_frame, text="📜Transaction History", font=("Arial", 12,"bold"), bg=
 Button(atm_frame, text="🔙Logout", font=("Arial", 12,"bold"), bg="orange", fg="white", width=20, command=lambda:(atm_frame.pack_forget(), login_frame.pack(pady=20))).pack(pady=5)
 
 result_frame = Frame(main_card, bg="#1e1e2f")
-result_label=Label(
-result_frame, text="Result will  appear here", font=("Arial", 14,"bold"), bg="#1e1e2f", fg="white",wraplength=300, justify="center"
+result_box = tk.Text(
+    result_frame,
+    width=50,
+    height=12,
+    font=("Arial", 12,"bold"),
+    bg="#1e1e2f",
+    fg="white",
+    wrap="word"
 )
-result_label.pack(pady=50)
-
+result_box.pack(pady=20)
+result_box.insert("1.0", "Result will appear here")
+result_box.config(state="disabled")
 root.mainloop()
