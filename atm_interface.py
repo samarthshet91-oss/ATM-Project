@@ -32,15 +32,14 @@ def show_atm_options(acc,pin):
     current_pin = pin
 
 def show_result(msg, color):
-    result_frame.pack(pady=20)
+    result_frame.pack(pady=10)
     atm_frame.pack_forget()
     result_box.config(state="normal")
     result_box.delete("1.0", "end")
     result_box.insert("1.0", msg)
     result_box.config(fg=color)
     result_box.config(state="disabled")
-    back_btn=Button(result_frame, text="🔙Back to Menu", font=("Arial", 12,"bold"), bg="orange", fg="white", width=20, command=back_to_menu_screen  )
-    back_btn.pack(pady=10)
+    root.after(3000, back_to_menu_screen)
 
 def back_to_menu_screen():
     result_frame.pack_forget()
@@ -150,12 +149,23 @@ result_box = tk.Text(
     result_frame,
     width=50,
     height=12,
-    font=("Arial", 12,"bold"),
+    font=("Arial", 12, "bold"),
     bg="#1e1e2f",
     fg="white",
     wrap="word"
 )
-result_box.pack(pady=20)
+back_btn = Button(
+    result_frame,
+    text="⬅ Back to Menu",
+    font=("Arial", 12, "bold"),
+    bg="orange",
+    fg="white",
+    width=20,
+    command=back_to_menu_screen
+)
+back_btn.pack(pady=10)
+result_box.pack(pady=15)
 result_box.insert("1.0", "Result will appear here")
 result_box.config(state="disabled")
+back_btn.pack(pady=10)
 root.mainloop()
